@@ -2,7 +2,7 @@
 name: scorecard
 description: >-
   Use when the operator asks whether something is worth pursuing, or when a scout finds a
-  possible <your venture> that needs a go/no-go score.
+  possible venture that needs a go/no-go score.
 ---
 # scorecard
 
@@ -15,12 +15,12 @@ Self-describing recipe. Cold reader scores one opportunity without prior chat co
 
 ## Required inputs and access
 - **Opportunity name** and plain-English description.
-- Known context from `/workspace/<brain>/` if relevant (`facts/venture.md`, `facts/<product>.md`, `learning/bets.md` for prior scores of the same idea).
+- Known context from `/workspace/<brain>/` if relevant (`facts/venture.md`, `facts/product.md`, `learning/bets.md` for prior scores of the same idea).
 - No credentials. No outside posts.
 
 ## Sequence
 1. Read `index.md` → `rules.md` → `facts/venture.md`. If this idea was scored before, read the matching `learning/bets.md` lines.
-2. Answer before scoring (short bullets): What problem? Who has it? Will they pay? Who already solves it? What makes <your venture> different? Fastest test? Smallest viable product? What could kill it?
+2. Answer before scoring (short bullets): What problem? Who has it? Will they pay? Who already solves it? What makes the operator's venture different? Fastest test? Smallest viable product? What could kill it?
 3. Score **1–10** each: Customer Problem, Market Opportunity, Revenue Potential, Competitive Advantage, Technical Difficulty, Speed to MVP, Cost to Build, Scalability, Personal Interest, Overall Opportunity.
 4. Give: **VERDICT** (pursue / not), **WHY** (≤3 sentences), **MVP** (fastest version), **ONE NEXT STEP**.
 5. Honest pushback — say when time is wasted. Do not force AI where it adds no value. Do not propose a new agent, new connector, or multi-bot plan as the next step.

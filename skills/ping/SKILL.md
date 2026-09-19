@@ -38,7 +38,7 @@ Quiet hours are **9:00 PM–7:00 AM** local. **Always evaluate this gate before 
 2. Dedupe: hash/normalize the item + URL against `ledger/pings.jsonl` **and** `ledger/ping-hold.jsonl`. If already sent or held, stop (optionally log `dedupe` on the below-bar path during calibration — see below).
 3. Compose **one** message body, **four lines max**:
    1. WHAT — one sentence, plain English.
-   2. WHY IT MATTERS — one sentence tied to `<your venture / products / positions>`, or family.
+   2. WHY IT MATTERS — one sentence tied to the operator's business, products, positions, or family.
    3. LINK — original source URL, or “none” if none.
    4. NEXT STEP — one concrete action, or “watch only.”
 
@@ -50,7 +50,7 @@ When the ping reports a **substantiated change** (servicer move, date retarget, 
 4. **Quiet-hours gate (always run):** if now is 9:00 PM–7:00 AM America/Chicago, check the exception list (family / security / same-day deadline / operator-requested path-check). If none apply, append to `ledger/ping-hold.jsonl` and stop (no post, no `pings.jsonl`). If operator-test exempt applies, proceed and set `quiet-hours=exempt:operator-test` on the ledger line.
 5. Post that **same** message to **assistant chat** and Slack `<your-channel>`. Do not follow, like, or reply on X. If Slack post fails, still post to assistant chat and note Slack failure there.
 6. Append one JSON line to `ledger/pings.jsonl`: `date`, `item`, `url`, `hash`, `reaction` (`unknown` until the operator replies), `watch`.
-7. If this run is a standing routine, append one line to `log/routines.md`: `- YYYY-MM-DD HH:MM CT | <routine> | <outcome> | pinged` (America/Chicago).
+7. If this run is a standing routine, append one line to `log/routines.md`: `- YYYY-MM-DD HH:MM CT | routine-name | outcome | pinged` (America/Chicago).
 
 ## Quiet / below-bar path (nothing meets the bar / skipped)
 - Do not post. If a standing routine: `quiet` in `log/routines.md`.

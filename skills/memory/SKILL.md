@@ -23,10 +23,10 @@ Self-describing recipe. Files win; built-in Bot memory is a cache and may be sta
 
 ## Sequence — WRITE
 1. Subject picks the file (one place only):
-   - Facts → `facts/<subject>.md` (`venture`, `<product>`, `stack`, `investing`, `people`, `watches`)
+   - Facts → `facts/SUBJECT.md` (`venture`, `product`, `stack`, `investing`, `people`, `watches`)
    - Decisions → `decisions.md` (append-only)
    - What happened → `log/YYYY-MM.md`
-   - Routine runs → `log/routines.md` (append-only; format `- YYYY-MM-DD HH:MM CT | <name> | <outcome> | <pinged|quiet>`)
+   - Routine runs → `log/routines.md` (append-only; format `- YYYY-MM-DD HH:MM CT | routine-name | outcome | pinged or quiet`)
    - Pings → `ledger/pings.jsonl` (+ reaction updates)
    - Ping tallies → `learning/signal.md`
    - Corrections → `learning/lessons.md`

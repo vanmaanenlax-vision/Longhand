@@ -1,9 +1,11 @@
 # People
 
 Who matters for quiet-hours exceptions and delivery decisions. The ping skill reads this
-to decide what counts as "family-relevant." Keep it to roles, not dossiers. Fictional
-example row — replace it.
+file to decide what counts as "family-relevant" — a match here can wake the operator
+at night. So it ships **empty**: no example row. Empty means no family exceptions until
+you add them.
+
+Keep it to roles, not dossiers. One line per person or role, dated.
 
 | Date | Person / role | Note | Status |
 |---|---|---|---|
-| 2026-01-15 | Partner | family — quiet-hours exception applies | active |

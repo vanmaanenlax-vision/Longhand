@@ -11,6 +11,10 @@ that's a week of adding one at a time. The first fifteen minutes gets the loop t
 **You need:** a Grok Bot agent with its own computer, Gmail connected to it, and about
 fifteen minutes.
 
+**One convention:** angle-bracket tokens like `<brain>` are things *you* replace before
+running. Each file's README says which ones. Routine prompt files contain nothing else,
+so if you see an angle-bracket token in a prompt file, it's yours to fill.
+
 ---
 
 ## 1. Get the files onto the agent's computer (2 min)
@@ -74,9 +78,11 @@ one each from these files — use the name, description, and body from each SKIL
   /workspace/longhand/skills/ping/SKILL.md
   /workspace/longhand/skills/scorecard/SKILL.md
   /workspace/longhand/skills/memory/SKILL.md
-Before writing, replace <brain> with "brain" in each. In the ping skill, <your-channel>
-is a Slack channel I watch — [give it the channel name, OR say: "I don't use Slack;
-delete the Slack references."]
+Before writing, replace the only two placeholders the skills contain:
+  <brain> -> "brain" (in all three)
+  <your-channel> -> [the Slack channel I watch, OR: "I don't use Slack; delete the
+  Slack references"] (ping skill only)
+There are no other placeholders in the skills. Confirm none remain before writing.
 ```
 
 When it's done, the three show up as skill pills in chat and under the agent's
@@ -86,18 +92,24 @@ platform adds skills.)*
 
 **If you already have skills with similar names** (e.g. from an earlier setup), install
 these under the names `ping`, `scorecard`, `memory` and retire the old ones — two
-overlapping ping skills will fight.
+overlapping ping skills will fight. To retire on Grok Bot, tell the agent:
+`update_state target skill, action delete, name <old-skill-name>` for each old one.
 
 ## 5. Stage ONE routine — the minimal one (4 min)
 
 Not the full eight. Not even the full gmail watch. Start with
-`/workspace/longhand/routines/gmail-weekday-watch/minimal.md`. It has **two
-placeholders** and needs no personal data to run: it pings real people, bills, and
-deadlines, archives the rest, and ends every run at inbox zero.
+`/workspace/longhand/routines/gmail-weekday-watch/minimal.md`. It is a **pure prompt
+with one placeholder** (`<brain>`) and needs no personal data to run: it pings real
+people, bills, and deadlines, archives the rest, and ends every run at inbox zero.
+Read the `README.md` next to it first — it explains the three files in that folder and
+which one you actually paste.
 
-Open it. Replace `<brain>` with `brain`. It names two Gmail labels literally — `keeper`
-and `Purge` — so create those two labels in Gmail now (or rename them in the file to
-labels you already have). That's the only setup.
+Open `minimal.md`. Replace `<brain>` with `brain`. It names two Gmail labels literally —
+`keeper` and `Purge`. **If you already have labels that mean "keep this" and "delete
+later," rename those two words in the file to match — don't create duplicates.** If
+you have no such labels, create `keeper` and `Purge` now, either in Gmail (left
+sidebar → + next to Labels) or by telling the agent: "create Gmail labels keeper and
+Purge." That's the only setup.
 
 Then, in the agent's chat:
 
@@ -125,6 +137,10 @@ Add one row to `/workspace/brain/facts/routine-roster.md`. The prompt hash is:
 ```
 sha256sum /workspace/longhand/routines/gmail-weekday-watch/minimal.md | cut -c1-16
 ```
+
+This works because `minimal.md` is a pure prompt — the file you hash is exactly the
+file you pasted, so the roster hash matches what's running. (If you ever edit the
+routine's text in the platform, re-hash the file you edited from, not the original.)
 
 Now enable the routine. Log a second decisions row: `enabled gmail-weekday-watch`. One
 decision per row — creating and enabling are two decisions.
