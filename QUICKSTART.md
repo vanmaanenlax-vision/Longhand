@@ -93,7 +93,7 @@ platform adds skills.)*
 **If you already have skills with similar names** (e.g. from an earlier setup), install
 these under the names `ping`, `scorecard`, `memory` and retire the old ones — two
 overlapping ping skills will fight. To retire on Grok Bot, tell the agent:
-`update_state target skill, action delete, name <old-skill-name>` for each old one.
+ask it to list installed skills with their ids (there is no list action on `update_state` — the id is the skill pill / folder slug), then `update_state target skill, action delete, id <old-skill-id>` for each old one.
 
 ## 5. Stage ONE routine — the minimal one (4 min)
 
