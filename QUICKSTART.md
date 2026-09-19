@@ -1,33 +1,57 @@
-# Quickstart — fifteen minutes to a running agent
+# Quickstart — a running routine in about fifteen minutes
 
-You do not need to read the whole README first. Do these six steps, in order, and you
-will have a governed agent running one real routine by the end. Read the README after,
-when you want to understand *why* it's built this way.
+This guide is written for **Grok Bot**, where Longhand was built. Every step names the
+real screen or command. If you're on another platform, the two things that differ are
+called out where they happen: where base instructions live, and how skills install.
 
-**Two ways in.** Install the ready-made bot from the template link in the README (fastest),
-or build it from the files in this repo (what this guide walks through). Either way, do
-step 1 — the template packager ships instructions and skills but not the memory files,
-and the files are the point.
+**What "fifteen minutes" honestly gets you:** a complete brain, three skills installed,
+and one real routine running against your inbox. Not the full eight-routine setup —
+that's a week of adding one at a time. The first fifteen minutes gets the loop turning.
+
+**You need:** a Grok Bot agent with its own computer, Gmail connected to it, and about
+fifteen minutes.
 
 ---
 
-## 1. Build the brain (3 min)
+## 1. Get the files onto the agent's computer (2 min)
 
-The agent needs a directory it reads first, every time. Create it on the agent's machine:
+In the agent's chat:
 
 ```
-mkdir -p brain/{facts,log,ledger,learning,snapshots}
-cp -r <this-repo>/brain/* brain/
+Clone https://github.com/vanmaanenlax-vision/Longhand into /workspace/longhand
 ```
 
-That gives you `index.md`, `rules.md`, an empty `decisions.md`, and the roster template.
-Open `brain/rules.md` and read the fourteen laws. Change any that aren't yours. **Do not
-skip this** — the agent will cite these rules, so they need to be rules you actually
-want enforced.
+Everything below refers to `/workspace/longhand/...` (the repo) and `/workspace/brain`
+(the memory store you're about to build). Those are the real paths on a Grok Bot
+computer. On another platform, use wherever your agent's persistent working directory
+is and substitute throughout.
 
-## 2. Tell the agent the files win (1 min)
+## 2. Build the brain (1 min)
 
-Add this to your bot's base instructions, verbatim:
+```
+cp -r /workspace/longhand/brain /workspace/brain
+```
+
+That's the whole step. The repo ships a **complete** scaffolding — `index.md`,
+`rules.md`, `decisions.md`, the roster, every ledger/learning/log file the skills read,
+and five `facts/` stubs (stack, people, venture, product, watch-feed-senders), each with
+one clearly-fictional example row. Nothing needs to be created by hand.
+
+Open `/workspace/brain/rules.md` and read the fourteen laws. You don't have to change
+anything yet — you'll edit them as you learn what you actually want enforced. Just know
+they're there, because the agent is about to start citing them.
+
+**About `<brain>`:** every routine and skill in the repo says `/workspace/<brain>/...`.
+Replace `<brain>` with the folder name — `brain` — so paths become `/workspace/brain/...`.
+Not a full path, just the name.
+
+## 3. Put the one rule where the agent reads it (2 min)
+
+Grok Bot has no field called "instructions." Base instructions live in the agent's
+**Description**. Path: open the agent's chat → click the agent's name in the header (or
+Cmd+Shift+I) → gear → the agent's Settings → **Description**.
+
+Paste this at the top of the Description, verbatim:
 
 ```
 Before any substantive turn, read /workspace/brain/index.md and then rules.md. The
@@ -35,62 +59,107 @@ files are the source of truth. If you and the files disagree, the files are righ
 you are stale. Never restate a rule — cite it.
 ```
 
-This one paragraph is most of the method. Everything else builds on it.
+This one paragraph is most of the method. Everything else builds on it. *(Other
+platforms: this goes in the system prompt or custom-instructions field — whatever your
+agent reads before every turn.)*
 
-## 3. Install the three skills (3 min)
+## 4. Install the three skills (3 min)
 
-Copy `skills/ping/`, `skills/scorecard/`, and `skills/memory/` into your bot's skills
-directory. Each is a self-describing contract — a cold reader can run it without prior
-context. Open `skills/ping/SKILL.md` and replace the placeholders:
-
-- `<brain>` → your brain directory path
-- `<your-channel>` → your notification channel, **or delete the Slack references if you
-  don't use one.** The ping skill degrades to chat-only without a channel; it does not
-  break. Slack is optional.
-
-## 4. Turn on ONE routine (5 min)
-
-Not eight. One. Start with `routines/gmail-weekday-watch/job.md` — it's the routine most
-people want first and it's the one that teaches the act/noise/later loop fastest.
-
-Open it, replace the placeholders (`<brain>`, `<label:...>` with your real Gmail labels,
-`<your-product-automation-sender>` with a sender you want auto-filed or delete that
-block), and paste it as a scheduled routine in your platform. Four times a day on
-weekdays is the shipped cadence; start with twice if you're budget-conscious.
-
-**Then log its birth.** Add one row to `brain/decisions.md`:
+Grok Bot does **not** load skills from a folder. They install through the agent's own
+tooling. In the agent's chat:
 
 ```
-| 2026-xx-xx | Enabled gmail-weekday-watch, 2x/day | First routine | Yes — disable in settings |
+Install three skills from the repo using update_state (target: skill, action: write),
+one each from these files — use the name, description, and body from each SKILL.md:
+  /workspace/longhand/skills/ping/SKILL.md
+  /workspace/longhand/skills/scorecard/SKILL.md
+  /workspace/longhand/skills/memory/SKILL.md
+Before writing, replace <brain> with "brain" in each. In the ping skill, <your-channel>
+is a Slack channel I watch — [give it the channel name, OR say: "I don't use Slack;
+delete the Slack references."]
 ```
 
-And one row to `brain/facts/routine-roster.md`. If it isn't in the roster, the audit
-can't see it. This habit — every routine gets a row the moment it's born — is the
-single most important discipline in the method.
+When it's done, the three show up as skill pills in chat and under the agent's
+Settings. **Slack is optional.** Without a channel, the ping skill delivers to chat only;
+it does not break. *(Other platforms: install the three SKILL.md files however your
+platform adds skills.)*
 
-## 5. React to everything it sends (ongoing, ~30 sec/day)
+**If you already have skills with similar names** (e.g. from an earlier setup), install
+these under the names `ping`, `scorecard`, `memory` and retire the old ones — two
+overlapping ping skills will fight.
 
-When the agent pings you, reply **act**, **noise**, or **later**. That's it. Those three
-words are the whole calibration loop. Silence teaches it nothing (and it's built to
-treat silence as unknown, never as "noise"). Two weeks of honest reactions and it knows
-your bar.
+## 5. Stage ONE routine — the minimal one (4 min)
+
+Not the full eight. Not even the full gmail watch. Start with
+`/workspace/longhand/routines/gmail-weekday-watch/minimal.md`. It has **two
+placeholders** and needs no personal data to run: it pings real people, bills, and
+deadlines, archives the rest, and ends every run at inbox zero.
+
+Open it. Replace `<brain>` with `brain`. It names two Gmail labels literally — `keeper`
+and `Purge` — so create those two labels in Gmail now (or rename them in the file to
+labels you already have). That's the only setup.
+
+Then, in the agent's chat:
+
+```
+Create a routine named gmail-weekday-watch from /workspace/longhand/routines/
+gmail-weekday-watch/minimal.md, schedule 0 9,15 * * 1-5 (weekdays 9am and 3pm), and
+create it PAUSED. Do not run it yet.
+```
+
+Twice a day is the right starting cadence. The full version runs four times; earn that.
+
+## 6. Log its birth, then turn it on (2 min)
+
+**Before you enable it**, record that it exists. This is the single most important habit
+in the method — if a routine isn't in the roster, the audit can't see it.
+
+Add one row to `/workspace/brain/decisions.md`:
+
+```
+| 2026-xx-xx | Created gmail-weekday-watch (minimal), 2x/day weekdays, paused | first routine | yes — delete routine |
+```
+
+Add one row to `/workspace/brain/facts/routine-roster.md`. The prompt hash is:
+
+```
+sha256sum /workspace/longhand/routines/gmail-weekday-watch/minimal.md | cut -c1-16
+```
+
+Now enable the routine. Log a second decisions row: `enabled gmail-weekday-watch`. One
+decision per row — creating and enabling are two decisions.
+
+## 7. React to everything it sends (30 sec/day, ongoing)
+
+When it pings you, reply **act**, **noise**, or **later**. That's the entire calibration
+loop. Silence teaches it nothing — it's built to treat silence as unknown, never as
+"noise." Two weeks of honest reactions and it knows your bar.
 
 **Do not add a second routine for at least three days.** Watch your platform's usage
 meter. A routine that fires too often is the most common way these setups fail — the
 author's Slack listener burned a full weekly allowance in days. Earn each routine.
 
-## 6. After a week, turn on the audit (2 min)
+## 8. After a week, turn on the audit (2 min)
 
-Paste `routines/memory-audit/job.md` as a weekly routine (Sunday morning is the shipped
-default). Its first run will probably flag something — that's the point, not a problem.
-Every flag ends with "confirm or kill?" and you answer. The agent proposes; it never
-resolves a flag alone.
+Stage `/workspace/longhand/routines/memory-audit/job.md` as a weekly routine (Sunday
+morning is the shipped default), same replace-`<brain>` step, same birth rows. Its first
+run will probably flag something — that's the point. Every flag ends with "confirm or
+kill?" and you answer. It proposes; it never resolves a flag alone.
 
 ---
 
+## Graduating from minimal
+
+Once minimal has run a week and you've reacted to its pings, open the full
+`gmail-weekday-watch/job.md`. It adds watch-feed senders, product-automation filing,
+and a promo list — and it has many more placeholders. Read `EXAMPLE-filled.md` first:
+it's the full routine filled in for a **fictional** operator so you can see the shape of
+real substitutions. Anything that doesn't apply to you, **delete the block** — don't fill
+it with a guess. A routine is allowed to be shorter than the template.
+
 ## What to add next, in order
 
-quiet-flush (once you enable quiet hours) → memory-commit (nightly, the heart of it) →
+quiet-flush (once you set quiet hours) → memory-commit (nightly; the heart of it) →
 x-sweep / intelligence-scout (if you watch a timeline) → channel-listener **last, and
 paused by default** — read the warning at the top of its file before you ever enable it.
 
