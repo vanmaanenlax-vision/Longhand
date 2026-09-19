@@ -2,8 +2,13 @@
 
 **A governed agent operating system — by VMV.**
 
+My agent had a rule that was supposed to keep it from waking me at night. It never ran —
+not once, for nine days — and every signal said it was working. This is the system I
+built so that can't happen silently again. [Read the evidence.](EVIDENCE.md)
+
 A file-first memory store, skill contracts, and a weekly self-audit for a chief-of-staff
-agent. Built and run for weeks on a $30 plan.
+agent. Built and run for weeks on a $30 plan. **New here? Start with [QUICKSTART.md](QUICKSTART.md)
+— fifteen minutes to a running routine.**
 
 Longhand means written out in full — nothing abbreviated, nothing compressed into
 shorthand only the writer can read. That is the whole argument. Your agent's memory lives
